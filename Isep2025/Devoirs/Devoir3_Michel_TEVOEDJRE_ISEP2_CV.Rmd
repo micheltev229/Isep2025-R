@@ -1,0 +1,96 @@
+---
+title: "Curriculum Vitae"
+author: "Michel TEVOEDJRE"
+output: word_document
+---
+
+# Informations personnelles
+
+**Prénoms :** Sènou Michel-Marie Trésor  
+**Nom :** TEVOEDJRE  
+**Nationalité :** Béninoise  
+**Adresse :** Dakar, Sénégal  
+**Email :** micheltevoedjre11@gmail.com  
+**Téléphones :** (+221) 77 693 59 73 / (+229) 65 46 09 56  
+
+# Études et Formation
+
+- **2023–2025** : Deux années préparatoires d’Ingénieur Statisticien Économiste  
+  _ENSAE Pierre-Ndiaye, Dakar_
+
+- **2022–2023** : Licence 1 en Statistiques Économiques et Sectorielles  
+  _ENEAM, Bénin_
+
+- **2021–2022** : Baccalauréat Série Scientifique (C)  
+  _Collège Saint-Augustin, Cotonou_
+
+# Résumé des Compétences
+
+- Conception d’enquêtes  
+- Traitement des données  
+- Analyse descriptive univariée et bivariée  
+- Visualisation avec Excel  
+- Maîtrise des logiciels statistiques  
+- Modélisation économique de base  
+- Analyse descriptive des séries temporelles  
+
+# Compétences Techniques
+
+- **Statistiques** : SPSS, STATA, R  
+- **Collecte de données** : KoboToolbox  
+- **SIG** : QGIS  
+- **Programmation** : Python, VBA, C
+- **Bureautique** : Word, Excel, PowerPoint  
+- **Autres outils** : Canva, Git & GitHub  
+
+# Certifications
+
+- Formation de base en Systèmes d’Information Géographique (QGIS, Google Earth, GPS)  
+  _CEID, Dakar_
+
+# Expériences Professionnelles
+
+- **Mars 2025** : Coordonnateur de l’Enquête de Satisfaction – SSN 2024  
+  _Ministère de l’Économie, ANSD, ENSAE Dakar_
+
+- **Novembre 2024** : Analyse de données pour mémoire (qualité des mesures, ANM – Bénin)
+
+- **Novembre 2024** : Co-conception d’un questionnaire sur les kystes maxillo-mandibulaires (CHU FANN – Sénégal)
+
+# Projets Académiques
+
+**2024–2025**
+- Enquête sur la lecture chez les lycéens de Dakar  
+- Analyse du système éducatif du Nigéria (2000–2023)  
+
+**2023–2024**
+- Analyse du bien-être des ménages sénégalais (EHCVM)  
+- Tableau de bord Excel – entreprise d’assurance  
+- Analyse Euro 2012 avec Python  
+- Séries temporelles – prévision de l’indice de chiffre d’affaires du Sénégal
+
+# Engagements Associatifs
+
+- **2024–2025**
+  - Rédacteur, Club Presse  
+  - Chargé de communication, Club Leadership  
+  - Chef Marketing & Communication, Junior Entreprise  
+  - Trésorier, Junior Entreprise  
+
+- **2023–2024**
+  - Trésorier, Association des Étudiants Béninois (ASEB – ENSAE Dakar)  
+
+# Langues
+
+- **Français** : C2 (langue principale)  
+- **Anglais** : B2 (intermédiaire supérieur)
+- **Fon** : (langue maternelle)
+
+# Centres d'intérêt
+
+- Entrepreneuriat  
+- Développement personnel  
+- Lecture
+- Ecriture
+- Salle de sport
+- Musique  

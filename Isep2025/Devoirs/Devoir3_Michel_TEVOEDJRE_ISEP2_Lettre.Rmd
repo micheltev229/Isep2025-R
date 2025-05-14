@@ -1,0 +1,37 @@
+---
+title: "Lettre de motivation"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output: word_document
+---
+
+
+**Michel TEVOEDJRE**  
+Dakar, Sénégal  
+micheltevoedjre11@gmail.com  
+(+221) 77 693 59 73 / (+229) 65 46 09 56  
+
+---
+
+**À l’attention du Directeur Général**  
+Agence Nationale de la Statistique et de la Démographie (ANSD)  
+Colobane Cerf-Volant – Dakar  
+
+---
+
+### Objet : Candidature pour un stage académique au sein de l’ANSD
+
+Madame, Monsieur,
+
+Actuellement étudiant en deuxième année du cycle préparatoire de la formation d’Ingénieur Statisticien Économiste à l’École Nationale de la Statistique et de l’Analyse Économique (ENSAE) Pierre-Ndiaye de Dakar, je souhaite vivement effectuer un stage au sein de votre institution, en tant qu'étape clé de mon parcours de formation.
+
+Intéressé par les problématiques liées à la statistique et l'économie, je considère l’ANSD comme un cadre idéal pour mettre en pratique mes acquis théoriques et développer mes compétences techniques. Lors de ma formation, j’ai pu acquérir des bases théoriques solides (mathématiques, statistiques, économie) renforcées par de la pratique ( conception d’enquêtes, traitement et analyse des données, visualisation statistique, projets multiples, R, STATA, Excel).
+
+Je suis particulièrement attiré par la rigueur méthodologique de votre institution ainsi que par la diversité de ses domaines d’intervention. Un stage au sein de l’ANSD me permettrait de renforcer mon savoir-faire, tout en contribuant activement aux missions de production et de valorisation des données statistiques nationales.
+
+En pièce jointe à cette lettre, vous trouverez mon curriculum vitae détaillant mon parcours académique, mes compétences et expériences. Je reste à votre entière disposition pour toute information complémentaire ou entretien à votre convenance.
+
+Dans l’attente d’un retour favorable, je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.
+
+---
+
+**Michel TEVOEDJRE**

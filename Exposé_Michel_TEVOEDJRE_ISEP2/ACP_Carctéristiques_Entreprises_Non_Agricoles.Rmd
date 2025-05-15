@@ -1,0 +1,130 @@
+---
+title: "ACP_Carctéristiques_Entreprises_Non_Agricoles"
+author: "Michel"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+    fig_caption: true
+    latex_engine: xelatex
+fontsize: 11pt
+header-includes:
+   - \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.pos='H')
+```
+
+# 1. Installation et chargement des packages
+
+```{r install_load_packages}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+packages <- c("haven", "dplyr", "FactoMineR", "factoextra", "stringr", "knitr", "kableExtra", "rstudioapi")
+new.packages <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+lapply(packages, library, character.only = TRUE)
+```
+
+# 2. Définition du chemin vers le dossier de la base
+
+```{r define_path}
+if(requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+  senegaldata <- dirname(rstudioapi::getSourceEditorContext()$path)
+} else {
+  senegaldata <- "." 
+}
+cat("Dossier des données :", senegaldata, "\n")
+```
+
+# 3. Importation et nettoyage des données
+
+```{r import_clean}
+ma_base <- read_dta(file.path(senegaldata, "s10_2_me_SEN2018.dta"))
+ma_base <- ma_base %>% filter(!(s10q17b %in% 1:5))
+```
+
+# 4. Aperçu des variables, types et labels
+
+```{r variables_labels}
+var_types_labels <- data.frame(
+  Variable = names(ma_base),
+  Type = sapply(ma_base, function(x) class(x)[1]),
+  Label = sapply(ma_base, function(x) attr(x, "label"))
+)
+knitr::kable(var_types_labels[1:20, ], caption = "Variables, Types et Labels (extrait)") %>%
+  kableExtra::kable_styling(full_width = FALSE, position = "left")
+```
+
+# 5. Sélection et préparation des variables quantitatives
+
+```{r select_prepare}
+vars_quant <- ma_base %>%
+  select(where(is.numeric)) %>%
+  select(where(~ mean(is.na(.)) < 0.3)) %>%
+  select(where(~ sd(., na.rm = TRUE) > 0)) %>%
+  select(-any_of(c("vague", "grappe", "menage")))
+
+vars_imputed <- vars_quant %>%
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+stopifnot(!any(is.na(vars_imputed)))
+stopifnot(all(sapply(vars_imputed, sd) > 0))
+```
+
+# 6. Standardisation des données
+
+```{r standardisation}
+vars_scaled <- scale(vars_imputed)
+```
+
+# 7. Analyse en Composantes Principales (ACP)
+
+```{r acp}
+res_acp <- PCA(vars_scaled, graph = FALSE)
+```
+
+# 8. Visualisations
+
+## 8.1. Variance expliquée par les composantes principales
+
+```{r fviz_eig, fig.width=7, fig.height=5}
+fviz_eig(res_acp, addlabels = TRUE, ylim = c(0, 50)) +
+  ggtitle("Variance expliquée par les axes principaux")
+```
+
+## 8.2. Cercle des corrélations des variables
+
+```{r fviz_pca_var, fig.width=7, fig.height=7}
+fviz_pca_var(res_acp, col.var = "cos2", gradient.cols = c("grey", "blue"), repel = TRUE) +
+  ggtitle("Cercle des corrélations")
+```
+
+## 8.3. Représentation des individus
+
+```{r fviz_pca_ind, fig.width=7, fig.height=7}
+fviz_pca_ind(res_acp, col.ind = "cos2", gradient.cols = c("grey", "red"), repel = TRUE) +
+  ggtitle("Projection des individus")
+```
+
+# 9. Résultats détaillés
+
+## 9.1. Coordonnées des individus
+
+```{r coord_individus}
+coord_individus <- as.data.frame(res_acp$ind$coord)
+coord_individus <- cbind(id = rownames(coord_individus), coord_individus)
+knitr::kable(head(coord_individus), caption = "Coordonnées des individus (extrait)") %>%
+  kableExtra::kable_styling(full_width = FALSE)
+```
+
+## 9.2. Contributions des variables
+
+```{r contrib_variables}
+contrib_variables <- as.data.frame(res_acp$var$contrib)
+contrib_variables <- cbind(variable = rownames(contrib_variables), contrib_variables)
+knitr::kable(head(contrib_variables), caption = "Contributions des variables (extrait)") %>%
+  kableExtra::kable_styling(full_width = FALSE)
+```

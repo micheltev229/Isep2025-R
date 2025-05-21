@@ -8,7 +8,7 @@ Ce dépôt contient l'ensemble de mes devoirs réalisés dans le cadre du cours 
 
 ---
 
-## EN Description
+## GB Description
 
 This repository contains all my assignments for the **R programming** course taken during the **2024–2025 academic year**.  
 

@@ -1,0 +1,114 @@
+---
+title: "Analyse en Composantes Principales"
+subtitle: "Application aux données SEN2018"
+author: "Michel TEVOEDJRE – ENSAE Dakar"
+date: "`r Sys.Date()`"
+output:
+  beamer_presentation:
+    theme: "Madrid"
+    colortheme: "beaver"
+    slide_level: 2
+    toc: false
+    number_sections: false
+fontsize: 10pt
+lang: fr
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center", fig.width = 8)
+```
+
+# Introduction
+
+- Objectif : appliquer une Analyse en Composantes Principales (ACP) à des données d'enquête.
+- Étapes clés : nettoyage, sélection des variables, standardisation, ACP, visualisation.
+
+# Chargement des bibliothèques
+
+```{r}
+library(haven)
+library(dplyr)
+library(FactoMineR)
+library(factoextra)
+library(stringr)
+library(janitor)
+library(ggplot2)
+library(tibble)
+```
+
+# Importation et préparation des données
+
+```{r}
+# Définir le chemin dynamiquement (ou modifier manuellement)
+install.packages("rstudioapi")
+install.packages("rstudioapi")
+senegaldata <- dirname(rstudioapi::getSourceEditorContext()$path)
+ma_base <- read_dta(file.path(senegaldata, "/s10_2_me_SEN2018.dta"))
+
+# Filtrage des observations
+ma_base <- ma_base %>% filter(!(s10q17b %in% 1:5))
+
+# Sélection des variables numériques avec peu de NA
+vars_quant <- ma_base %>%
+  select(where(is.numeric)) %>%
+  select(where(~ mean(is.na(.)) < 0.3)) %>%
+  select(where(~ sd(., na.rm = TRUE) > 0)) %>%
+  select(-any_of(c("vague", "grappe", "menage")))
+
+# Imputation des valeurs manquantes
+vars_imputed <- vars_quant %>%
+  mutate(across(everything(), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+# Vérification
+stopifnot(!any(is.na(vars_imputed)))
+stopifnot(all(sapply(vars_imputed, sd) > 0))
+
+# Standardisation
+vars_scaled <- scale(vars_imputed)
+```
+
+# Réalisation de l’ACP
+
+```{r}
+res_acp <- PCA(vars_scaled, graph = FALSE)
+```
+
+# Valeurs propres
+
+```{r, fig.width=5, fig.height=3}
+fviz_eig(res_acp, addlabels = TRUE, ylim = c(0, 50))
+```
+
+# Corrélation des variables avec les axes
+
+```{r, fig.width=5, fig.height=3}
+fviz_pca_var(res_acp, col.var = "cos2", gradient.cols = c("grey", "blue"), repel = TRUE)
+```
+
+# Position des individus dans le plan factoriel
+
+```{r, fig.width=5, fig.height=3}
+fviz_pca_ind(res_acp, col.ind = "cos2", gradient.cols = c("grey", "red"), repel = TRUE)
+```
+
+# Résultats numériques
+
+```{r}
+coord_individus <- as.data.frame(res_acp$ind$coord)
+contrib_variables <- as.data.frame(res_acp$var$contrib)
+
+coord_individus <- cbind(id = rownames(coord_individus), coord_individus)
+contrib_variables <- cbind(variable = rownames(contrib_variables), contrib_variables)
+
+knitr::kable(head(coord_individus, 5), caption = "Coordonnées des individus (extrait)")
+```
+
+```{r}
+knitr::kable(head(contrib_variables, 5), caption = "Contributions des variables aux axes (extrait)")
+```
+
+# Conclusion
+
+- L’ACP révèle la structure sous-jacente des données.
+- Elle identifie les variables influentes et les profils d’individus similaires.
+- Utile pour des analyses exploratoires ou la réduction de dimensions avant modélisation.
